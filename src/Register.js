@@ -9,9 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {SafeAreaView} from 'react-native';
+//import { useEffect, useState } from 'react';
+//import BouncyCheckbox from "react-native-bouncy-checkbox",
 
-const Contactus = () => {
+const Register = () => {
   return (
+    <SafeAreaView>
     <ScrollView>
       <KeyboardAvoidingView>
         <View style={{marginBottom: 40}}>
@@ -22,49 +27,36 @@ const Contactus = () => {
               borderRadius: 4,
               backgroundColor: '#fff',
               borderColor: '#d3d3d3',
-              height: '98%',
+              height: '97%',
               padding: 20,
             }}>
             <View style={styles.mainContainer}>
-              <Text style={styles.mainHeader}>Create account </Text>
+              <Text style={styles.mainHeader}>Register </Text>
+              <Text>Enter your Details to Register</Text>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.labels}>Your first name </Text>
+                <Text style={styles.labels}>Full Name </Text>
                 <TextInput
                   style={styles.inputStyle}
-                  placeholder={'Enter your first name'}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.labels}>Your last name </Text>
-                <TextInput
-                  style={styles.inputStyle}
-                  placeholder={'Enter your last name'}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.labels}>Phone number </Text>
-                <TextInput
-                  style={styles.inputStyle}
-                  placeholder={'Enter your mobile number'}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.labels}>Your last name </Text>
-                <TextInput
-                  style={styles.inputStyle}
-                  placeholder={'Enter your last name'}
+                  placeholder={'Enter your full name'}
                 />
               </View>
 
               <View style={styles.inputContainer}>
                 <Text style={styles.labels}>Your E-mail </Text>
                 <TextInput
+                autoCorrect={false}
+                onFocus={() =>{
+                  onFocus();
+                  setIsFocused(true);
+                }}
+                onBlur={() => {
+                  setIsFocused(false);
+
+                }}
                   style={styles.inputStyle}
                   placeholder={'Enter your email'}
+
                 />
               </View>
 
@@ -85,13 +77,18 @@ const Contactus = () => {
               <View>
                 <TouchableOpacity
                   style={{
-                    alignItems: 'center',
-                    padding: 10,
-                    margin: 20,
-                    borderRadius: 25,
-                    backgroundColor: '#f1c40f',
+                     alignItems: 'center',
+                     padding: 10,
+                     margin: 20,
+                     borderRadius: 25,
+                    //backgroundColor: '#f1c40f',
                   }}>
-                  <Text style={styles.buttonText}> Submit </Text>
+                  <LinearGradient
+                    colors={['#08d4c4', '#01ab9d']}
+                    style={styles.signIn}
+                >
+                  <Text style={styles.textSign}> Submit </Text>
+                  </LinearGradient>
                 </TouchableOpacity>
               </View>
 
@@ -102,7 +99,7 @@ const Contactus = () => {
                   and
                   <Text style={{color: '#00f'}}> Privacy Notice. </Text>
                 </Text>
-              </View>
+              </View> 
               <View
                 style={{
                   marginTop: 10,
@@ -118,8 +115,7 @@ const Contactus = () => {
               <View style={{flexDirection: 'row'}}>
                 <Text style={{color: '#000'}}>
                   Already have an account?
-                  
-                    <Text style={{color: '#00f', flexDirection: 'row'}}> Sign-In</Text>
+                    <Text style={{color: '#00f', flexDirection: 'row'}}> LogIn</Text>
         
                 </Text>
               </View>
@@ -128,19 +124,20 @@ const Contactus = () => {
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
-    padding: 10,
+    padding: 5,
     backgroundColor: '#fff',
   },
   mainHeader: {
-    fontSize: 30,
-    color: '#344055',
-    fontWeight: '400',
+    fontSize: 35,
+    color: 'black',
+    fontWeight: '600',
     paddingBottom: 1,
   },
   description: {
@@ -193,6 +190,19 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: '#7d7d7d',
   },
+  textSign: {
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 22,
+},
+signIn: {
+  width: 250,
+  height: 50,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 50,
+  flexDirection: 'row'
+},
 });
 
-export default Contactus;
+export default Register;

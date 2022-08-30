@@ -1,16 +1,13 @@
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
 
 const Test = () => {
   return (
-    <Text style={{color: 'blue'}}>
-    I am blue
-    <Text style={{color: 'red'}}>
-        i am red
-    </Text>
-    and i am blue again
-</Text>
-  );
-};
+    <View style={{borderWidth:3,margin:10,height:'90%',padding:20}}>
+      
+    <Text style={{textAlign:'center',}}>Text</Text>
+    </View>
+  )
+}
 
 export default Test;

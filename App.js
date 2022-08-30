@@ -1,14 +1,21 @@
-import React from 'react';
-import {View} from 'react-native';
-import Contactus from './src/Contactus';
-import Test from './src/test';
+
+ import React from 'react';
+import { 
+  View, 
+} from 'react-native';
+
+import AppNavigator from "./src/AppNavigator"
+
+
 
 const App = () => {
   return (
-    <View>
-      <Contactus />
-    </View>
-  );
+    
+    <AppNavigator/>
+  )
+  
 };
 
 export default App;
+ 
+
