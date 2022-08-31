@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Register from './Register';
-import Test from './test';
 import SplashScreen from './SplashScreen';
 import LogIn from './LogIn';
 import Home from './Home';

@@ -6,12 +6,14 @@ import {
     TextInput,
     Platform,
     StyleSheet ,
+    KeyboardAvoidingView,
+    SafeAreaView,
+    ScrollView,
     StatusBar,
     Alert
 } from 'react-native';
-import {SafeAreaView} from 'react-native'
 
-import * as Animatable from 'react-native-animatable';
+//import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 //import FontAwesome from 'react-native-vactor'
 
@@ -30,11 +32,11 @@ const LogIn = ({navigation}) => {
                 borderRadius: 4,
                 backgroundColor: '#fff',
                 borderColor: '#d3d3d3',
-                height: '98%',
+                height: '100%',
                 padding: 20,
               }}>
               <View style={styles.mainContainer}>
-                <Text style={styles.mainHeader}>Log In </Text>
+                <Text style={styles.mainHeader}>Welcome! </Text>
                 <View style={styles.inputContainer}>
                   <Text style={styles.labels}>Your E-mail </Text>
                   <TextInput
@@ -50,44 +52,56 @@ const LogIn = ({navigation}) => {
                     placeholder={'At least 8 characters'}
                   />
                 </View>
+
+                
   
-                {/* submit button  */}
+                {/* LogIn button  */}
                 <View>
-                  <TouchableOpacity
+                <TouchableOpacity
                     style={{
                       alignItems: 'center',
-                      padding: 10,
-                      margin: 20,
+                     // padding: 10,
+                      marginTop: 10,
                       borderRadius: 25,
-                      backgroundColor: '#f1c40f',
-                    }}>
-                    <Text style={styles.buttonText}> LogIn </Text>
+                      //backgroundColor: '#f1c40f',
+                    }}
+                    onPress={()=>navigation.navigate('Home')}
+                    >
+                    <LinearGradient
+                      colors={['#08d4c4', '#01ab9d']}
+                      style={styles.buttonStyle}>
+                      <Text style={styles.textSign} > Login </Text>
+                    </LinearGradient>
                   </TouchableOpacity>
                 </View>
-
+                {/* Forgot password  */}
                 <View>
-                  <Text style={{color: '#000'}}>
-                  Don't have account? Register
-                  </Text>
+                <Text style={{
+                  textAlign:'center',
+                  fontSize:15,
+                  marginTop: 20,
+                  marginBottom: 20,
+                  color:"red",
+                  fontWeight:"400",
+                }}>Forgot password?</Text>
                 </View>
-                <View
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    // borderWidth: 0.25,
-                    width: 300,
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: '#888',
-                    //  marginLeft: 90,
-                    color: 'black',
-                  }}></View>
-  
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: '#000'}}>
-                    Already have an account?
-                    
-                      <Text style={{color: '#00f', flexDirection: 'row'}}> Sign-In</Text>
-          
+                {/* sign in google and facebook account button  */}
+                <View>
+                <TouchableOpacity>
+                
+              
+                </TouchableOpacity>
+                </View>
+
+           
+                <View style={{flexDirection: 'row' , }}>
+                  <Text style={{color: '#000', fontSize:17,}}>
+                  Don't have an account?
+                  <View>
+                  <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
+                      <Text style={{color: '#00f',}}> Sign-Up</Text>
+                 </TouchableOpacity>
+                 </View>
                   </Text>
                 </View>
               </View>
@@ -140,7 +154,9 @@ const styles = StyleSheet.create({
       paddingVertical: 4,
     },
     buttonStyle: {
-      borderRadius: 5,
+      width: 300,
+      height: 50,
+      borderRadius: 20,
       paddingVertical: 10,
       paddingHorizontal: 18,
       display: 'flex',
@@ -148,8 +164,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginVertical: 30,
     },
-    buttonText: {
-      color: 'black',
+    textSign: {
+      color: 'white',
       fontWeight: '500',
       fontSize: 20,
       textAlign: 'center',
