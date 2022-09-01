@@ -1,89 +1,35 @@
-import { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
- // Button,
-  ScrollView,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  
+    ScrollView,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    SafeAreaView,
+
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {SafeAreaView} from 'react-native';
-import {showToast, validateUserEmail, validateUserName} from './utils';
 
-//import BouncyCheckbox from "react-native-bouncy-checkbox",
-
-const Register = ({navigation}) => {
+const Register = () => {
   const [fullName, setfullName] = useState('');
   const [emailAddres, setemailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-   
-{/* const getUserData = async () => {
- try {
- const response = await fetch(
-  'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
-  );
-  const myData = await response.json(); 
-  console.log(myData);
- } catch (error){
-  console.log(error);
-
- }
-}; 
-
-useEffect(() => {
-  getUserData ();
-}, []);
- */}
-
   
-  const btnAction = () => {
-    if (fullName === '') {
-      showToast('Full Name is required.');
-    } else if (!validateUserName(fullName)) {
-      showToast('Enter only alphabets!');
+  const saveUser = () =>
+    const response = await fetch(
+    // 'https://cybexo.dev/cybexo360_0/api/register'
+     );
+     const myData = await response.json(); 
+     console.log(myData);
+     catch (error){
+     console.log(error);
+   
     }
-    else if (fullName.length < 3) {
-          showToast('enter minimum 4 characters')
-      }
-    // else if (lastName === ""){
-    //     showToast("Last Name is required.")
-    // }
-    // else if (!validateUserName(lastName)) {
-    //     showToast('Enter only alphabets!')
-    // }
-    else if (emailAddres === '') {
-      showToast('email is required.');
-    } else if (!validateUserEmail(emailAddres)) {
-      showToast('Enter Valid Email!');
-    }
-    // else if (phoneno === ""){
-    //     showToast("Phone no is required.")
-    // }
-    // else if (phoneno.length < 11) {
-    //     showToast('Mobile Number is not Valid!')
-    // }
-    else if (password === '') {
-      showToast('Password is required.');
-    } else if (password.length < 8) {
-      showToast('Password should be at least 8 characters ');
-    } else if (confirmPassword === '') {
-      showToast('Confirm Password is required.');
-    } else if (confirmPassword !== password) {
-      showToast('Password does not Matched!');
-    } else {
-      showToast(' your data is registered.');
-    }
-  };
-
+   }; 
+   
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <KeyboardAvoidingView>
           <View style={{marginBottom: 40}}>
             <View
               style={{
@@ -115,7 +61,7 @@ useEffect(() => {
                   <TextInput
                     style={styles.inputStyle}
                     placeholder={'Enter your email'}
-                    value={emailAddres}
+                   // value={emailAddres}
                     onChangeText={text => setemailAddress(text)}
                   />
                 </View>
@@ -126,7 +72,7 @@ useEffect(() => {
                     style={styles.inputStyle}
                     maxLength={20}
                     placeholder={'At least 8 characters'}
-                    value={password}
+                  //  value={password}
                     onChangeText={text => setPassword(text)}
                   />
                 </View>
@@ -137,7 +83,7 @@ useEffect(() => {
                     style={styles.inputStyle}
                     maxLength={20}
                     placeholder={''}
-                    value={confirmPassword}
+                 //   value={confirmPassword}
                     onChangeText={text => setConfirmPassword(text)}
                   />
                 </View>
@@ -155,11 +101,9 @@ useEffect(() => {
                     onPress={() => {
                       btnAction();
                     }}>
-                    <LinearGradient
-                      colors={['#08d4c4', '#01ab9d']}
-                      style={styles.signIn}>
+                    
                       <Text style={styles.textSign}> Submit </Text>
-                    </LinearGradient>
+                
                   </TouchableOpacity>
                 </View>
 
@@ -198,89 +142,87 @@ useEffect(() => {
               </View>
             </View>
           </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </SafeAreaView>
+       
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    height: '100%',
-    padding: 5,
-    backgroundColor: '#fff',
-  },
-  mainHeader: {
-    fontSize: 35,
-    color: 'black',
-    fontWeight: '600',
-    paddingBottom: 1,
-  },
-  description: {
-    fontSize: 20,
-    color: '#7d7d7d',
-    paddingBottom: 20,
-    lineHeight: 25,
-  },
-
-  inputContainer: {
-    marginTop: 20,
-  },
-  labels: {
-    fontWeight: '700',
-    color: 'black',
-    paddingBottom: 5,
-    lineHeight: 25,
-    fontSize: 16,
-  },
-  inputStyle: {
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.3)',
-    paddingHorizontal: 15,
-    paddingVertical: 6,
-    borderRadius: 2,
-    fontSize:16,
-  },
-  multiineStyle: {
-    paddingVertical: 4,
-  },
-  buttonStyle: {
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 30,
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '500',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 20,
-  },
-  wrapperText: {
-    marginLeft: 10,
-    color: '#7d7d7d',
-  },
-  textSign: {
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 22,
-  },
-  signIn: {
-    width: 300,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-    flexDirection: 'row',
-  },
-});
+    mainContainer: {
+      height: '100%',
+      padding: 5,
+      backgroundColor: '#fff',
+    },
+    mainHeader: {
+      fontSize: 35,
+      color: 'black',
+      fontWeight: '600',
+      paddingBottom: 1,
+    },
+    description: {
+      fontSize: 20,
+      color: '#7d7d7d',
+      paddingBottom: 20,
+      lineHeight: 25,
+    },
+  
+    inputContainer: {
+      marginTop: 20,
+    },
+    labels: {
+      fontWeight: '700',
+      color: 'black',
+      paddingBottom: 5,
+      lineHeight: 25,
+      fontSize: 16,
+    },
+    inputStyle: {
+      borderWidth: 1,
+      borderColor: 'rgba(0, 0, 0, 0.3)',
+      paddingHorizontal: 15,
+      paddingVertical: 6,
+      borderRadius: 2,
+      fontSize:16,
+    },
+    multiineStyle: {
+      paddingVertical: 4,
+    },
+    buttonStyle: {
+      borderRadius: 20,
+      paddingVertical: 10,
+      paddingHorizontal: 18,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 30,
+    },
+    buttonText: {
+      color: 'black',
+      fontWeight: '500',
+      fontSize: 20,
+      textAlign: 'center',
+    },
+    wrapper: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 20,
+    },
+    wrapperText: {
+      marginLeft: 10,
+      color: '#7d7d7d',
+    },
+    textSign: {
+      color: 'white',
+      fontWeight: '500',
+      fontSize: 22,
+    },
+    signIn: {
+      width: 300,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 50,
+      flexDirection: 'row',
+    },
+  });
 
 export default Register;
