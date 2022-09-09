@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { 
     View, 
     Text, 
@@ -10,16 +10,59 @@ import {
     SafeAreaView,
     ScrollView,
     StatusBar,
-    Alert
+    alert,
 } from 'react-native';
-
 //import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 //import FontAwesome from 'react-native-vactor'
 
 const LogIn = ({navigation}) => {
+ 
+  const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [Token, setToken] = useState(null)
 
-   
+    useEffect(()=>{
+        // EmptyFunc()
+    },[])
+    
+// const EmptyFunc = async () => {
+//     await emptyToken()
+// }
+
+const postUser = async () => {
+  let bodyData = new FormData();
+  bodyData.append("email", email)
+  bodyData.append("password", password)
+  console.log('data  >>><<<<', bodyData)
+
+  const requestOptions = {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: bodyData
+  };
+
+  try {
+      const response = await fetch('https://cybexo.dev/cybexo360_0/api/login', requestOptions)
+      const data = await response.json()
+      if(data.token){
+          alert("login successfully...")
+          await SetToken(data.token)
+          
+          
+          navigation.navigate(screenNames.Home)
+          
+      }
+      else {
+        alert("please Enter the valid credentials...")
+    }
+
+} catch (error) {
+    console.log('//////////', JSON.stringify(error))
+}
+
+}
+
     return (
       <SafeAreaView>
         <ScrollView>
@@ -40,6 +83,8 @@ const LogIn = ({navigation}) => {
                 <View style={styles.inputContainer}>
                   <Text style={styles.labels}>Your E-mail </Text>
                   <TextInput
+                   value={email}
+                   onChangeText={(text) => setEmail(text)}
                     style={styles.inputStyle}
                     placeholder={'Enter your email'}
                   />
@@ -48,6 +93,8 @@ const LogIn = ({navigation}) => {
                 <View style={styles.inputContainer}>
                   <Text style={styles.labels}>Password </Text>
                   <TextInput
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
                     style={styles.inputStyle}
                     placeholder={'At least 8 characters'}
                   />
@@ -65,7 +112,12 @@ const LogIn = ({navigation}) => {
                       borderRadius: 25,
                       //backgroundColor: '#f1c40f',
                     }}
-                    onPress={()=>navigation.navigate('Home')}
+                    onPress={() => {
+                      postUser()
+                      //  navigation.navigate(screenNames.Home) 
+                  }}
+
+                  
                     >
                     <LinearGradient
                       colors={['#08d4c4', '#01ab9d']}

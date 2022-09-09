@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import {
  // Button,
   ScrollView,
@@ -13,67 +13,94 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native';
 import {showToast, validateUserEmail, validateUserName} from './utils';
+import {useForm} from 'react-hook-form';
 
 //import BouncyCheckbox from "react-native-bouncy-checkbox",
 
 const Register = ({navigation}) => {
-  const [fullName, setfullName] = useState('');
-  const [emailAddres, setemailAddress] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-   
-{/* const getUserData = async () => {
- try {
- const response = await fetch(
-  'https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json'
-  );
-  const myData = await response.json(); 
-  console.log(myData);
- } catch (error){
-  console.log(error);
+  const [ConfirmationPassword, setConfirmationPassword] = useState('');
 
- }
-}; 
 
-useEffect(() => {
-  getUserData ();
-}, []);
- */}
+  const postUser = async () => {
+    let bodyData = new FormData();
+    bodyData.append('name', name);
+    bodyData.append('email', email);
+    bodyData.append('password', password);
+    bodyData.append('password_confirmation', ConfirmationPassword);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {Accept: 'application/json'},
+      body: bodyData,
+    };
+
+    try {
+      const response = await fetch(
+        'https://cybexo.dev/cybexo360_0/api/register',
+        requestOptions,
+      );
+      const data = await response.json();
+
+      console.log('..........', data);
+    } catch (error) {
+      console.log('//////////', JSON.stringify(error));
+    }
+  };
+// const getUserData = async () => {
+//  try {
+//  const response = await fetch(
+  
+//   );
+//   const myData = await response.json(); 
+//   console.log(myData);
+//  } catch (error){
+//   console.log(error);
+
+//  }
+// }; 
+
+// useEffect(() => {
+//   getUserData ();
+// }, []);
+ 
 
   
-  const btnAction = () => {
-    if (fullName === '') {
+ const btnAction = () => {
+    if (name === '') {
       showToast('Full Name is required.');
-    } else if (!validateUserName(fullName)) {
+    } else if (!validateUserName(name)) {
       showToast('Enter only alphabets!');
     }
-    else if (fullName.length < 3) {
+    else if (name.length < 3) {
           showToast('enter minimum 4 characters')
       }
-    // else if (lastName === ""){
-    //     showToast("Last Name is required.")
-    // }
-    // else if (!validateUserName(lastName)) {
-    //     showToast('Enter only alphabets!')
-    // }
-    else if (emailAddres === '') {
+//     // else if (lastName === ""){
+//     //     showToast("Last Name is required.")
+//     // }
+//     // else if (!validateUserName(lastName)) {
+//     //     showToast('Enter only alphabets!')
+//     // }
+    else if (email === '') {
       showToast('email is required.');
-    } else if (!validateUserEmail(emailAddres)) {
+    } else if (!validateUserEmail(email)) {
       showToast('Enter Valid Email!');
     }
     // else if (phoneno === ""){
-    //     showToast("Phone no is required.")
-    // }
-    // else if (phoneno.length < 11) {
-    //     showToast('Mobile Number is not Valid!')
-    // }
+//     //     showToast("Phone no is required.")
+//     // }
+//     // else if (phoneno.length < 11) {
+//     //     showToast('Mobile Number is not Valid!')
+//     // }
     else if (password === '') {
       showToast('Password is required.');
     } else if (password.length < 8) {
       showToast('Password should be at least 8 characters ');
-    } else if (confirmPassword === '') {
+    } else if (ConfirmationPassword === '') {
       showToast('Confirm Password is required.');
-    } else if (confirmPassword !== password) {
+    } else if (ConfirmationPassword !== password) {
       showToast('Password does not Matched!');
     } else {
       showToast(' your data is registered.');
@@ -81,6 +108,7 @@ useEffect(() => {
   };
 
   return (
+    <View>
     <SafeAreaView>
       <ScrollView>
         <KeyboardAvoidingView>
@@ -100,13 +128,13 @@ useEffect(() => {
                 <Text style={{fontSize:16,}}>Enter your Details to Register</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.labels}>Full Name </Text>
+                  <Text style={styles.labels}>Your Name </Text>
                   <TextInput
                     style={styles.inputStyle}
                     maxLength={15}
-                    placeholder={'Enter your full name'}
-                    value={fullName}
-                    onChangeText={text => setfullName(text)}
+                    placeholder={'Enter your name'}
+                    value={name}
+                    onChangeText={text => setName(text)}
                   />
                 </View>
 
@@ -115,16 +143,18 @@ useEffect(() => {
                   <TextInput
                     style={styles.inputStyle}
                     placeholder={'Enter your email'}
-                    value={emailAddres}
-                    onChangeText={text => setemailAddress(text)}
+                    value={email}
+                    onChangeText={text => setEmail(text)}
                   />
                 </View>
 
                 <View style={styles.inputContainer}>
                   <Text style={styles.labels}>Password </Text>
+                  
                   <TextInput
                     style={styles.inputStyle}
                     maxLength={20}
+                    secureTextEntry={true}
                     placeholder={'At least 8 characters'}
                     value={password}
                     onChangeText={text => setPassword(text)}
@@ -137,8 +167,9 @@ useEffect(() => {
                     style={styles.inputStyle}
                     maxLength={20}
                     placeholder={''}
-                    value={confirmPassword}
-                    onChangeText={text => setConfirmPassword(text)}
+                    secureTextEntry={true}
+                    value={ConfirmationPassword}
+                    onChangeText={text => setConfirmationPassword(text)}
                   />
                 </View>
 
@@ -154,14 +185,18 @@ useEffect(() => {
                     }}
                     onPress={() => {
                       btnAction();
-                    }}>
+                    }}
+                      onPressIn={() => {
+                        postUser();
+                      }}
+                   >
                     <LinearGradient
                       colors={['#08d4c4', '#01ab9d']}
                       style={styles.signIn}>
                       <Text style={styles.textSign}> Submit </Text>
                     </LinearGradient>
                   </TouchableOpacity>
-                </View>
+                </View> 
 
                 <View>
                   <Text style={{color: '#000',fontSize:16,lineHeight:23,}}>
@@ -190,7 +225,10 @@ useEffect(() => {
                     </Text>
                   </View>
                   <View>
-                    <TouchableOpacity onPress={()=>navigation.navigate('LogIn')}>
+                    <TouchableOpacity 
+                    //onPress={()=>navigation.navigate('LogIn')}
+                    
+                    >
                       <Text style={{color: 'blue',fontSize:18,fontWeight:"500",}}> Login</Text>
                     </TouchableOpacity>
                   </View>
@@ -201,6 +239,7 @@ useEffect(() => {
         </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>
+    </View>
   );
 };
 
@@ -283,4 +322,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default Register
